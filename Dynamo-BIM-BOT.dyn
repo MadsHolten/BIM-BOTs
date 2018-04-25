@@ -1,0 +1,159 @@
+<Workspace Version="1.3.2.2480" X="-926.710168809069" Y="262.825433619884" zoom="0.781199628926993" ScaleFactor="1" Name="Home" Description="" RunType="Manual" RunPeriod="1000" HasRunWithoutCrash="True">
+  <NamespaceResolutionMap />
+  <Elements>
+    <PythonNodeModels.PythonNode guid="713822fc-d1fb-419c-93a9-82020abe106d" type="PythonNodeModels.PythonNode" nickname="POST data" x="1880.32774850219" y="-164.917362330167" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" IsFrozen="false" isPinned="false" inputcount="4">
+      <PortInfo index="0" default="False" />
+      <PortInfo index="1" default="False" />
+      <PortInfo index="2" default="False" />
+      <PortInfo index="3" default="False" />
+      <Script>import clr
+import sys
+sys.path.append('C:\Program Files (x86)\IronPython 2.7\Lib')
+import httplib, urllib, json, base64, time
+
+clr.AddReference('ProtoGeometry')
+from Autodesk.DesignScript.Geometry import *
+#The inputs to this node will be stored as a list in the IN variables.
+url = IN[0]
+route = IN[1]
+body = IN[2]
+go = IN[3]
+
+if go:
+
+	# Make JSON object in proper format
+    json_body = '{"number": "%s"}' % body
+
+    #DB CONNECTION
+
+    # Establish connection
+    conn = httplib.HTTPConnection(url)
+
+    # Define headers for authorizatio etc.
+    headers = {"Content-type": "application/json"}
+
+    # Send request
+    conn.request('POST',route, json_body, headers)
+
+    # Get response
+    response = conn.getresponse()
+
+    # Read response
+    data = response.read()
+
+    # Close db connection
+    conn.close()
+
+else:
+    data = "off mode"
+
+#Assign your output to the OUT variable.
+OUT = data</Script>
+    </PythonNodeModels.PythonNode>
+    <CoreNodeModels.Watch guid="48f2c087-7865-4b57-9270-8c1583d1c45c" type="CoreNodeModels.Watch" nickname="Watch" x="2081.61958557742" y="-184.399436203429" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" IsFrozen="false" isPinned="false">
+      <PortInfo index="0" default="False" />
+    </CoreNodeModels.Watch>
+    <CoreNodeModels.Input.StringInput guid="f62ce79c-be57-4c06-b37b-4f9fa5debdbf" type="CoreNodeModels.Input.StringInput" nickname="URL" x="1360.96096358587" y="52.3106270665961" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True" IsFrozen="false" isPinned="false">
+      <System.String>localhost:3000</System.String>
+      <System.String value="localhost:3000" />
+    </CoreNodeModels.Input.StringInput>
+    <CoreNodeModels.Input.BoolSelector guid="1630c74d-054d-438a-943b-421fe5bde492" type="CoreNodeModels.Input.BoolSelector" nickname="GO?" x="1666.68176273555" y="-20.4468910420373" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True" IsFrozen="false" isPinned="false">
+      <System.Boolean>True</System.Boolean>
+    </CoreNodeModels.Input.BoolSelector>
+    <CoreNodeModels.Input.BoolSelector guid="d8f9e2ef-1d53-4170-92a2-94dc66c6f553" type="CoreNodeModels.Input.BoolSelector" nickname="GO?" x="1673.21120530017" y="231.842590066854" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True" IsFrozen="false" isPinned="false">
+      <System.Boolean>True</System.Boolean>
+    </CoreNodeModels.Input.BoolSelector>
+    <CoreNodeModels.Watch guid="8a48b81b-d282-4eef-8546-29cd754a28fc" type="CoreNodeModels.Watch" nickname="Watch" x="2112.51720309038" y="138.894305034933" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" IsFrozen="false" isPinned="false">
+      <PortInfo index="0" default="False" />
+    </CoreNodeModels.Watch>
+    <PythonNodeModels.PythonNode guid="ff84d2e8-b1db-43ef-8863-464845c3ec4f" type="PythonNodeModels.PythonNode" nickname="SPARQL GET" x="1903.62427259322" y="161.752646874989" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" IsFrozen="false" isPinned="false" inputcount="3">
+      <PortInfo index="0" default="False" />
+      <PortInfo index="1" default="False" />
+      <PortInfo index="2" default="False" />
+      <Script>import clr
+import sys
+sys.path.append('C:\Program Files (x86)\IronPython 2.7\Lib')
+import httplib, urllib, base64, json
+
+clr.AddReference('ProtoGeometry')
+from Autodesk.DesignScript.Geometry import *
+#The inputs to this node will be stored as a list in the IN variables.
+url = IN[0]
+route = IN[1]
+go = IN[2]
+
+if go:
+	
+	# DB CONNECTION
+	
+	# Establish connection
+	conn = httplib.HTTPConnection(url)
+	
+	# Define headers for authorizatio etc.
+	headers = {"Accept": "text/plain"}
+	
+	# Send request
+	conn.request('GET', route)
+	
+	# Get response
+	response = conn.getresponse()
+	
+	# Read response
+	data = response.read()
+	
+	# Close db connection
+	conn.close()
+
+else:
+	data = 'off mode'
+	
+#Assign your output to the OUT variable.
+OUT = data</Script>
+    </PythonNodeModels.PythonNode>
+    <CoreNodeModels.Input.StringInput guid="83061612-ae3d-4752-9ec2-0eb34c8c7124" type="CoreNodeModels.Input.StringInput" nickname="URL" x="1691.21531880151" y="-156.999071228509" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True" IsFrozen="false" isPinned="false">
+      <System.String>/square</System.String>
+      <System.String value="/square" />
+    </CoreNodeModels.Input.StringInput>
+    <CoreNodeModels.Input.DoubleInput guid="a93fd98c-f078-43d5-9604-806ea2e15a22" type="CoreNodeModels.Input.DoubleInput" nickname="Number" x="1692.27509972904" y="-92.9560597193544" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True" IsFrozen="false" isPinned="false">
+      <System.Double value="8" />
+    </CoreNodeModels.Input.DoubleInput>
+    <CoreNodeModels.Input.StringInput guid="a29cdca9-7137-462f-8573-dcb39b9e2135" type="CoreNodeModels.Input.StringInput" nickname="URL" x="1682.83860328636" y="155.16183158874" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True" IsFrozen="false" isPinned="false">
+      <System.String>/data</System.String>
+      <System.String value="/data" />
+    </CoreNodeModels.Input.StringInput>
+  </Elements>
+  <Connectors>
+    <Dynamo.Graph.Connectors.ConnectorModel start="713822fc-d1fb-419c-93a9-82020abe106d" start_index="0" end="48f2c087-7865-4b57-9270-8c1583d1c45c" end_index="0" portType="0" />
+    <Dynamo.Graph.Connectors.ConnectorModel start="f62ce79c-be57-4c06-b37b-4f9fa5debdbf" start_index="0" end="713822fc-d1fb-419c-93a9-82020abe106d" end_index="0" portType="0" />
+    <Dynamo.Graph.Connectors.ConnectorModel start="f62ce79c-be57-4c06-b37b-4f9fa5debdbf" start_index="0" end="ff84d2e8-b1db-43ef-8863-464845c3ec4f" end_index="0" portType="0" />
+    <Dynamo.Graph.Connectors.ConnectorModel start="1630c74d-054d-438a-943b-421fe5bde492" start_index="0" end="713822fc-d1fb-419c-93a9-82020abe106d" end_index="3" portType="0" />
+    <Dynamo.Graph.Connectors.ConnectorModel start="d8f9e2ef-1d53-4170-92a2-94dc66c6f553" start_index="0" end="ff84d2e8-b1db-43ef-8863-464845c3ec4f" end_index="2" portType="0" />
+    <Dynamo.Graph.Connectors.ConnectorModel start="ff84d2e8-b1db-43ef-8863-464845c3ec4f" start_index="0" end="8a48b81b-d282-4eef-8546-29cd754a28fc" end_index="0" portType="0" />
+    <Dynamo.Graph.Connectors.ConnectorModel start="83061612-ae3d-4752-9ec2-0eb34c8c7124" start_index="0" end="713822fc-d1fb-419c-93a9-82020abe106d" end_index="1" portType="0" />
+    <Dynamo.Graph.Connectors.ConnectorModel start="a93fd98c-f078-43d5-9604-806ea2e15a22" start_index="0" end="713822fc-d1fb-419c-93a9-82020abe106d" end_index="2" portType="0" />
+    <Dynamo.Graph.Connectors.ConnectorModel start="a29cdca9-7137-462f-8573-dcb39b9e2135" start_index="0" end="ff84d2e8-b1db-43ef-8863-464845c3ec4f" end_index="1" portType="0" />
+  </Connectors>
+  <Notes />
+  <Annotations>
+    <Dynamo.Graph.Annotations.AnnotationModel guid="e7c32175-58f3-4069-95c8-a8afc69a5923" annotationText="BIM BOT POST EXAMPLE" left="1656.68176273555" top="-223.199436203429" width="513.337822841872" height="270.552545161392" fontSize="24" InitialTop="-184.399436203429" InitialHeight="304.76327819117" TextblockHeight="28.8" backgrouund="#FFFFC999">
+      <Models ModelGuid="48f2c087-7865-4b57-9270-8c1583d1c45c" />
+      <Models ModelGuid="713822fc-d1fb-419c-93a9-82020abe106d" />
+      <Models ModelGuid="1630c74d-054d-438a-943b-421fe5bde492" />
+      <Models ModelGuid="83061612-ae3d-4752-9ec2-0eb34c8c7124" />
+      <Models ModelGuid="a93fd98c-f078-43d5-9604-806ea2e15a22" />
+    </Dynamo.Graph.Annotations.AnnotationModel>
+    <Dynamo.Graph.Annotations.AnnotationModel guid="fff3412d-5e69-4371-92ea-c50bca2985b4" annotationText="BIM BOT GET EXAMPLE" left="1663.21120530017" top="100.094305034933" width="611.305997790218" height="199.548285031921" fontSize="24" InitialTop="138.894305034933" InitialHeight="423.74787883062" TextblockHeight="28.8" backgrouund="#FFFFAA45">
+      <Models ModelGuid="ff84d2e8-b1db-43ef-8863-464845c3ec4f" />
+      <Models ModelGuid="8a48b81b-d282-4eef-8546-29cd754a28fc" />
+      <Models ModelGuid="d8f9e2ef-1d53-4170-92a2-94dc66c6f553" />
+      <Models ModelGuid="a29cdca9-7137-462f-8573-dcb39b9e2135" />
+    </Dynamo.Graph.Annotations.AnnotationModel>
+    <Dynamo.Graph.Annotations.AnnotationModel guid="32f9df4f-70da-42e4-a919-c6dc949d901d" annotationText="SETTINGS" left="1350.96096358587" top="13.5106270665961" width="134.4" height="107.4" fontSize="24" InitialTop="52.3106270665961" InitialHeight="98.6" TextblockHeight="28.8" backgrouund="#FFC1D676">
+      <Models ModelGuid="f62ce79c-be57-4c06-b37b-4f9fa5debdbf" />
+    </Dynamo.Graph.Annotations.AnnotationModel>
+  </Annotations>
+  <Presets />
+  <Cameras>
+    <Camera Name="Background Preview" eyeX="-3.53589010238647" eyeY="14.0946865081787" eyeZ="8.80758571624756" lookX="10.2210102081299" lookY="-13.2311201095581" lookZ="-2.38050293922424" upX="0.615554749965668" upY="0.774944484233856" upZ="-0.143364489078522" />
+  </Cameras>
+</Workspace>

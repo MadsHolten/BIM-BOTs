@@ -1,0 +1,16 @@
+{
+  "name": "BIM-BOT",
+  "version": "1.0.0",
+  "description": "This is just a simple example showing how a simple Node/Express driven REST API can execute programs written in other languages - in this case to illustrate the potential of BIM BOTs",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "keywords": ["BIM", "REST", "HTTP"],
+  "author": "Mads Holten Rasmussen",
+  "license": "GNU GPL v3",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.3"
+  }
+}
